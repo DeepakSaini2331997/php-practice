@@ -1,0 +1,121 @@
+// Find second hightest salary from emp table
+
+select distinct salary from emp order by desc limit 1,1
+
+select Max(salary) as secondhightestsalary from emp where salary <(select max(salary) from emp);
+
+// Find forth hightest salary from emp table
+
+select distinct salary from emp order by desc limit 3,1
+
+//Remove duplicate entry from table emp
+
+select distinct(*) from emp
+
+// Find those record whose salary is same from emp table
+
+select * from emp where salary in (selcet salary form emp group by salary having count(*)>1)
+
+// find record whose entry last 10 days from emp table
+
+select * from emp where date_added >= CURDATE() - INTERVAL 10 DAY
+
+select NOW() //return current date and time
+select curdate() //return current date
+select curtime() //return time in 24 hours format
+
+// find those employ record who is working last 3 years from emp table
+
+select * from emp whre date_added >= DATE_SUB(CURDATE(),INTERVAL 3 YEAR)
+
+// Display first record from table emp
+
+select top 1 from emp
+
+// Display top 3 record from emp
+
+select top 3 from emp
+
+// Display even records from the table emp
+
+select * from (select *,(ROW_NUMBER() OVER()) AS row_num from emp) as temp where temp.row_num %2 = 0
+
+// Display odd records from the table emp
+
+select * from (select *,(ROW_NUMBER() OVER()) AS row_num from emp) as temp where temp.row_num %2 = 1
+
+// update in all row name field kumar replace by singh in emp table
+
+update emp set name = REPLACE(name,'Kumar',singh);
+
+// what is indexing 
+
+indexing provide a quick search of data . it enhances the speed of operation accessing data from database
+
+create index index_name on emp (emp_id,salary)
+Drop index index_name
+
+// UNION ? INTERSECT ? 
+
+The UNION operator combines and returns the result-set retrieved by two or more SELECT statements.
+(NOTE-:Each SELECT statement within the clause must have the same number of columns,same dataType)
+
+SELECT name FROM Students   /* Fetch the union of queries */
+UNION                       // if we use union all then remove duplicate entry also.
+SELECT name FROM Contacts;
+
+// What is Cursor 
+
+
+// What is an Alias in SQL?
+
+select name as user_name from emp (temporary name assigned with as keyword)
+
+// What are the TRUNCATE, DELETE and DROP statements
+
+Delete from emp where emp_id=123  // delete particular row
+TRUNCATE emp;                     // delete all row from emp table
+DROP emp;                         // delete table emp
+
+// Aggregate and Scalar functions in SQL
+
+Aggregate functions are often used with the GROUP BY and HAVING clauses of the SELECT statement
+example-: AVG(),COUNT(),MIN(),MAX(),SUM(),FIRST(),LAST()
+
+Scalar Function example-: LEN(),UCASE(),LCASE(),CONCAT(),NOW(),
+
+// Stored Procedure?
+
+DELIMITER $$
+CREATE PROCEDURE fetchData()
+BEGIN
+Select * from emp;
+END $$
+DELIMITER;
+
+
+// Normalization (N) ?
+
+Normalization IS USE organizing structured data in the database and reduce redundancy in database 
+form of Normalization
+First Normal Form
+Second Normal Form
+Third Normal Form 
+
+// What is a trigger?
+
+
+// save password and match password in php
+
+$password = 'Deepak';
+$encrpt_password = password_hash($password); // encrpt your password
+$match_password = password_verify('Deepak',$encrpt_password) // if verqify then return 1 othre vice blank
+
+
+//System Design
+
+
+//Coupling and cohesion
+
+
+//UML Design
