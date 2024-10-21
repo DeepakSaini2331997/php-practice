@@ -1,32 +1,47 @@
 <?php 
+//sum of continous number  O(n^2)
 function subarraySum($nums, $k) {
-    $count = 0;  // To store the total number of subarrays whose sum equals k
-    $cumulativeSum = 0;  // To keep track of the cumulative sum
-    $hashmap = [];  // To store the cumulative sum frequency
-    $hashmap[0] = 1;  // Initialize the hashmap with sum 0 occurring once
+   $count = 0;
 
-    // Iterate over the array
-    foreach ($nums as $num) {
-        // Update the cumulative sum
-        $cumulativeSum += $num;
-        
-        // Check if cumulativeSum - k exists in the hashmap
-        if (isset($hashmap[$cumulativeSum - $k])) {
-            $count += $hashmap[$cumulativeSum - $k];  // Add the number of times this difference has occurred
+   for($i=0;$i<count($nums);$i++){
+        $sum = 0;
+        for($j=$i;$j<count($nums);$j++){
+            $sum = $sum+$nums[$j];
+            if($sum==$k){
+                $count++;
+            }
         }
-        //print_r($hashmap). '<br>';
-        // Add/update the cumulative sum in the hashmap
-        if (isset($hashmap[$cumulativeSum])) {
-            $hashmap[$cumulativeSum]++;
-        } else {
-            $hashmap[$cumulativeSum] = 1;
+   }
+    return $count;
+}
+$nums = [1, 2, 3, -3, 6];
+$k = 6;
+echo subarraySum($nums, $k);  // Output: 3
+// [1,2,3]
+// [3,-3,6]
+// [6]
+
+function subarraySumAnother($nums,$k){
+    $count = 0;
+    $sum = 0;
+    $hasmap[0] = 1; // sum 0 is occure 1 
+    foreach($nums as $num){
+        $sum += $num;
+
+        if(isset($hasmap[$sum-$k])){
+            $count += $hasmap[$sum-$k];
         }
-    }
+
+        if(isset($hasmap[$sum])){
+            $hasmap[$sum]++;
+        }else{
+            $hasmap[$sum] = 1;
+        }
+    } 
 
     return $count;
-    //echo '<pre>';print_r($hashmap);
+
 }
-$nums = [1, 1, 1];
-$k = 2;
-echo subarraySum($nums, $k);  // Output: 2
+echo '<br>'.'O(n) '.'<br>'.subarraySumAnother($nums, $k);  // Output: 3
+
 ?>
